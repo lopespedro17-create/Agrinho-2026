@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Agro Forte 2026 - Um futuro sustentável através da tecnologia e preservação ambiental">
+    <title>Agro Forte 2026 | Concurso Agrinho</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- NAVEGAÇÃO -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🌱</span>
+                <span class="logo-text">Agro Forte</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio" class="nav-link">Início</a></li>
+                <li><a href="#problema" class="nav-link">Problema</a></li>
+                <li><a href="#solucoes" class="nav-link">Soluções</a></li>
+                <li><a href="#quiz" class="nav-link">Quiz</a></li>
+                <li><a href="#estatisticas" class="nav-link">Dados</a></li>
+                <li><a href="#galeria" class="nav-link">Galeria</a></li>
+                <li><a href="#inspiracao" class="nav-link">Futuro</a></li>
+            </ul>
+            <div class="nav-extras">
+                <button class="dark-mode-toggle" id="darkModeToggle" title="Modo Escuro">🌙</button>
+                <button class="sound-toggle" id="soundToggle" title="Som">🔊</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SEÇÃO INICIAL (HERO) -->
+    <section id="inicio" class="hero">
+        <div class="hero-background">
+            <canvas id="canvas-hero"></canvas>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-word">Agro</span>
+                <span class="title-word">Forte</span>
+            </h1>
+            <p class="hero-subtitle">Futuro Sustentável: Equilíbrio entre Produção e Meio Ambiente</p>
+            <button class="btn btn-primary explore-btn" data-sound="click">
+                Explorar
+                <span class="btn-icon">↓</span>
+            </button>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- SEÇÃO PROBLEMA -->
+    <section id="problema" class="problema">
+        <div class="container">
+            <h2 class="section-title">O Desafio Global</h2>
+            <p class="section-subtitle">A agricultura enfrenta desafios ambientais que exigem soluções inovadoras</p>
+            
+            <div class="problema-grid">
+                <!-- Card 1: Água -->
+                <div class="problema-card" data-index="0">
+                    <div class="card-icon">💧</div>
+                    <h3>Desperdício de Água</h3>
+                    <p>70% da água consumida vai para agricultura, com grande desperdício em irrigação tradicional</p>
+                    <div class="card-stats">
+                        <span class="stat-number">70%</span>
+                        <span class="stat-label">de consumo</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Emissões -->
+                <div class="problema-card" data-index="1">
+                    <div class="card-icon">💨</div>
+                    <h3>Emissões de Carbono</h3>
+                    <p>A agricultura é responsável por 10% das emissões globais de gases de efeito estufa</p>
+                    <div class="card-stats">
+                        <span class="stat-number">10%</span>
+                        <span class="stat-label">do CO₂</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Desmatamento -->
+                <div class="problema-card" data-index="2">
+                    <div class="card-icon">🌳</div>
+                    <h3>Desmatamento</h3>
+                    <p>80% do desmatamento mundial é causado pela expansão agrícola não sustentável</p>
+                    <div class="card-stats">
+                        <span class="stat-number">80%</span>
+                        <span class="stat-label">conexão direta</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Solo -->
+                <div class="problema-card" data-index="3">
+                    <div class="card-icon">🏜️</div>
+                    <h3>Degradação do Solo</h3>
+                    <p>33% dos solos mundiais estão degradados. Perda de fertilidade em 24 bilhões de hectares</p>
+                    <div class="card-stats">
+                        <span class="stat-number">33%</span>
+                        <span class="stat-label">degradação</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO SOLUÇÕES -->
+    <section id="solucoes" class="solucoes">
+        <div class="container">
+            <h2 class="section-title">Soluções Sustentáveis</h2>
+            <p class="section-subtitle">Tecnologia e inovação transformando a agricultura</p>
+            
+            <div class="solucoes-grid">
+                <!-- Solução 1 -->
+                <div class="solucao-card">
+                    <div class="card-background"></div>
+                    <div class="card-icon-lg">💧</div>
+                    <h3>Irrigação Inteligente</h3>
+                    <p>Sensores IoT controlam o uso de água, reduzindo desperdício em até 60%</p>
+                    <ul class="benefits-list">
+                        <li>✓ Economia de água</li>
+                        <li>✓ Menor custo</li>
+                        <li>✓ Maior produção</li>
+                    </ul>
+                </div>
+
+                <!-- Solução 2 -->
+                <div class="solucao-card">
+                    <div class="card-background"></div>
+                    <div class="card-icon-lg">⚡</div>
+                    <h3>Energia Limpa</h3>
+                    <p>Painéis solares e energia eólica alimentam fazendas modernas com zero carbono</p>
+                    <ul class="benefits-list">
+                        <li>✓ Energia renovável</li>
+                        <li>✓ Zero emissões</li>
+                        <li>✓ Economia LTP</li>
+                    </ul>
+                </div>
+
+                <!-- Solução 3 -->
+                <div class="solucao-card">
+                    <div class="card-background"></div>
+                    <div class="card-icon-lg">🚁</div>
+                    <h3>Drones Agrícolas</h3>
+                    <p>Monitoramento aéreo preciso de pragas, saúde das plantas e umidade do solo</p>
+                    <ul class="benefits-list">
+                        <li>✓ Monitoramento 24/7</li>
+                        <li>✓ Aplicação precisa</li>
+                        <li>✓ Reduz químicos</li>
+                    </ul>
+                </div>
+
+                <!-- Solução 4 -->
+                <div class="solucao-card">
+                    <div class="card-background"></div>
+                    <div class="card-icon-lg">🤖</div>
+                    <h3>IA e Big Data</h3>
+                    <p>Análise de dados otimiza plantio, colheita e utilização de insumos agrícolas</p>
+                    <ul class="benefits-list">
+                        <li>✓ Decisões inteligentes</li>
+                        <li>✓ Previsões precisas</li>
+                        <li>✓ Máximo rendimento</li>
+                    </ul>
+                </div>
+
+                <!-- Solução 5 -->
+                <div class="solucao-card">
+                    <div class="card-background"></div>
+                    <div class="card-icon-lg">🌾</div>
+                    <h3>Agricultura Orgânica</h3>
+                    <p>Produção sem pesticidas, com rotação de culturas e compostagem biológica</p>
+                    <ul class="benefits-list">
+                        <li>✓ Produtos naturais</li>
+                        <li>✓ Solo saudável</li>
+                        <li>✓ Mais valor</li>
+                    </ul>
+                </div>
+
+                <!-- Solução 6 -->
+                <div class="solucao-card">
+                    <div class="card-background"></div>
+                    <div class="card-icon-lg">🌲</div>
+                    <h3>Reflorestamento</h3>
+                    <p>Plantio de árvores nativas restaura ecossistemas e sequestra carbono</p>
+                    <ul class="benefits-list">
+                        <li>✓ Biodiversidade</li>
+                        <li>✓ Carbono negativo</li>
+                        <li>✓ Renda futura</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO QUIZ INTERATIVA -->
+    <section id="quiz" class="quiz-section">
+        <div class="container">
+            <h2 class="section-title">Teste Seus Conhecimentos</h2>
+            <p class="section-subtitle">Descubra quanto você sabe sobre agricultura sustentável</p>
+            
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <span class="quiz-progress">
+                        Pergunta <span id="currentQuestion">1</span> de <span id="totalQuestions">5</span>
+                    </span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <div class="quiz-content">
+                    <h3 id="questionText" class="quiz-question"></h3>
+                    <div class="quiz-options" id="quizOptions"></div>
+                </div>
+
+                <div class="quiz-footer">
+                    <button class="btn btn-secondary" id="prevBtn" disabled>← Anterior</button>
+                    <span class="quiz-score">Pontuação: <strong id="score">0</strong>/<strong id="maxScore">100</strong></span>
+                    <button class="btn btn-primary" id="nextBtn">Próxima →</button>
+                </div>
+
+                <div id="quizResult" class="quiz-result hidden">
+                    <div class="result-card">
+                        <h3>Quiz Completo! 🎉</h3>
+                        <div class="final-score">
+                            <span class="score-number" id="finalScore">0</span>
+                            <span class="score-label">pontos</span>
+                        </div>
+                        <p id="resultMessage"></p>
+                        <button class="btn btn-primary" onclick="location.reload()">Refazer Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO ESTATÍSTICAS -->
+    <section id="estatisticas" class="estatisticas">
+        <div class="container">
+            <h2 class="section-title">Impacto Mensurável</h2>
+            <p class="section-subtitle">Resultados comprovados de práticas sustentáveis</p>
+            
+            <div class="stats-grid">
+                <!-- Stat 1 -->
+                <div class="stat-card">
+                    <div class="stat-visual">
+                        <svg viewBox="0 0 100 100" class="stat-circle">
+                            <circle cx="50" cy="50" r="45" class="stat-circle-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="stat-circle-progress" style="--percent: 60;"></circle>
+                        </svg>
+                        <div class="stat-number-overlay">
+                            <span class="counter" data-target="60">0</span>%
+                        </div>
+                    </div>
+                    <h4>Economia de Água</h4>
+                    <p>Redução com irrigação inteligente</p>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="stat-card">
+                    <div class="stat-visual">
+                        <svg viewBox="0 0 100 100" class="stat-circle">
+                            <circle cx="50" cy="50" r="45" class="stat-circle-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="stat-circle-progress" style="--percent: 45;"></circle>
+                        </svg>
+                        <div class="stat-number-overlay">
+                            <span class="counter" data-target="45">0</span>%
+                        </div>
+                    </div>
+                    <h4>Redução de CO₂</h4>
+                    <p>Com energia renovável</p>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="stat-card">
+                    <div class="stat-visual">
+                        <svg viewBox="0 0 100 100" class="stat-circle">
+                            <circle cx="50" cy="50" r="45" class="stat-circle-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="stat-circle-progress" style="--percent: 75;"></circle>
+                        </svg>
+                        <div class="stat-number-overlay">
+                            <span class="counter" data-target="75">0</span>%
+                        </div>
+                    </div>
+                    <h4>Aumento de Rendimento</h4>
+                    <p>Através de IA e dados</p>
+                </div>
+
+                <!-- Stat 4 -->
+                <div class="stat-card">
+                    <div class="stat-visual">
+                        <svg viewBox="0 0 100 100" class="stat-circle">
+                            <circle cx="50" cy="50" r="45" class="stat-circle-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="stat-circle-progress" style="--percent: 100;"></circle>
+                        </svg>
+                        <div class="stat-number-overlay">
+                            <span class="counter" data-target="100">0</span>%
+                        </div>
+                    </div>
+                    <h4>Biodiversidade</h4>
+                    <p>Restaurada com reflorestamento</p>
+                </div>
+            </div>
+
+            <!-- Casos de Sucesso -->
+            <div class="success-stories">
+                <h3 class="stories-title">Casos de Sucesso</h3>
+                <div class="stories-grid">
+                    <div class="story-card">
+                        <div class="story-header">
+                            <span class="story-emoji">🌍</span>
+                            <span class="story-location">Brasil</span>
+                        </div>
+                        <h4>Fazenda São José</h4>
+                        <p>Implementou irrigação inteligente e economizou 2 milhões de litros de água em um ano.</p>
+                        <div class="story-highlight">+35% de produção</div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-header">
+                            <span class="story-emoji">🌍</span>
+                            <span class="story-location">Europa</span>
+                        </div>
+                        <h4>Agropecuária Verde</h4>
+                        <p>100% de energia solar alimenta a operação. Atingiu neutralidade carbônica em 3 anos.</p>
+                        <div class="story-highlight">Zero emissões</div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-header">
+                            <span class="story-emoji">🌍</span>
+                            <span class="story-location">Ásia</span>
+                        </div>
+                        <h4>Precisão Agriculture Tech</h4>
+                        <p>Drones monitoram 50km² diariamente, reduzindo pesticidas em 70% e custos em 40%.</p>
+                        <div class="story-highlight">-70% de químicos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO GALERIA -->
+    <section id="galeria" class="galeria">
+        <div class="container">
+            <h2 class="section-title">Galeria Visual</h2>
+            <p class="section-subtitle">Conheça o agro moderno e sustentável</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="tecnologia">
+                    <div class="gallery-image">
+                        <svg viewBox="0 0 300 200" class="gallery-svg">
+                            <rect width="300" height="200" fill="#e8f5e9"/>
+                            <rect x="50" y="30" width="200" height="120" fill="#4caf50" rx="10"/>
+                            <circle cx="150" cy="90" r="30" fill="#ffd700"/>
+                            <rect x="130" y="170" width="40" height="20" fill="#666"/>
+                        </svg>
+                        <div class="gallery-overlay">
+                            <span class="view-btn">👁️ Ver</span>
+                        </div>
+                    </div>
+                    <h4>Painéis Solares</h4>
+                </div>
+
+                <div class="gallery-item" data-category="tecnologia">
+                    <div class="gallery-image">
+                        <svg viewBox="0 0 300 200" class="gallery-svg">
+                            <rect width="300" height="200" fill="#e3f2fd"/>
+                            <circle cx="150" cy="100" r="40" fill="#2196f3"/>
+                            <rect x="140" y="20" width="20" height="160" fill="#90caf9"/>
+                            <polygon points="150,20 140,40 160,40" fill="#ff9800"/>
+                        </svg>
+                        <div class="gallery-overlay">
+                            <span class="view-btn">👁️ Ver</span>
+                        </div>
+                    </div>
+                    <h4>Drone de Monitoramento</h4>
+                </div>
+
+                <div class="gallery-item" data-category="natureza">
+                    <div class="gallery-image">
+                        <svg viewBox="0 0 300 200" class="gallery-svg">
+                            <rect width="300" height="200" fill="#87ceeb"/>
+                            <polygon points="50,180 150,80 250,180" fill="#228b22"/>
+                            <polygon points="100,180 150,130 200,180" fill="#32cd32"/>
+                            <polygon points="120,180 150,150 180,180" fill="#00ff00"/>
+                            <rect x="0" y="180" width="300" height="20" fill="#8b7355"/>
+                        </svg>
+                        <div class="gallery-overlay">
+                            <span class="view-btn">👁️ Ver</span>
+                        </div>
+                    </div>
+                    <h4>Reflorestamento</h4>
+                </div>
+
+                <div class="gallery-item" data-category="agricultura">
+                    <div class="gallery-image">
+                        <svg viewBox="0 0 300 200" class="gallery-svg">
+                            <rect width="300" height="200" fill="#f5f5dc"/>
+                            <circle cx="80" cy="100" r="20" fill="#228b22"/>
+                            <circle cx="150" cy="100" r="20" fill="#228b22"/>
+                            <circle cx="220" cy="100" r="20" fill="#228b22"/>
+                            <line x1="80" y1="120" x2="80" y2="170" stroke="#8b4513" stroke-width="3"/>
+                            <line x1="150" y1="120" x2="150" y2="170" stroke="#8b4513" stroke-width="3"/>
+                            <line x1="220" y1="120" x2="220" y2="170" stroke="#8b4513" stroke-width="3"/>
+                        </svg>
+                        <div class="gallery-overlay">
+                            <span class="view-btn">👁️ Ver</span>
+                        </div>
+                    </div>
+                    <h4>Plantio Sustentável</h4>
+                </div>
+
+                <div class="gallery-item" data-category="agua">
+                    <div class="gallery-image">
+                        <svg viewBox="0 0 300 200" class="gallery-svg">
+                            <rect width="300" height="200" fill="#e0f2f1"/>
+                            <rect x="80" y="80" width="140" height="80" fill="#00897b" rx="5"/>
+                            <circle cx="120" cy="60" r="8" fill="#2196f3"/>
+                            <circle cx="150" cy="50" r="8" fill="#2196f3"/>
+                            <circle cx="180" cy="60" r="8" fill="#2196f3"/>
+                            <line x1="120" y1="68" x2="120" y2="80" stroke="#2196f3" stroke-width="2"/>
+                            <line x1="150" y1="58" x2="150" y2="80" stroke="#2196f3" stroke-width="2"/>
+                            <line x1="180" y1="68" x2="180" y2="80" stroke="#2196f3" stroke-width="2"/>
+                        </svg>
+                        <div class="gallery-overlay">
+                            <span class="view-btn">👁️ Ver</span>
+                        </div>
+                    </div>
+                    <h4>Irrigação Inteligente</h4>
+                </div>
+
+                <div class="gallery-item" data-category="tecnologia">
+                    <div class="gallery-image">
+                        <svg viewBox="0 0 300 200" class="gallery-svg">
+                            <rect width="300" height="200" fill="#fff3e0"/>
+                            <rect x="60" y="40" width="180" height="120" fill="#ff9800" rx="10"/>
+                            <circle cx="100" cy="100" r="25" fill="#ffd700"/>
+                            <circle cx="200" cy="100" r="25" fill="#ffd700"/>
+                            <line x1="75" y1="100" x2="225" y2="100" stroke="#fff" stroke-width="2"/>
+                        </svg>
+                        <div class="gallery-overlay">
+                            <span class="view-btn">👁️ Ver</span>
+                        </div>
+                    </div>
+                    <h4>Fazenda Solar</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO INSPIRADORA FINAL -->
+    <section id="inspiracao" class="inspiracao">
+        <div class="inspiration-background"></div>
+        <div class="container">
+            <div class="inspiracao-content">
+                <h2 class="inspiration-title">O Futuro é Sustentável</h2>
+                <p class="inspiration-text">
+                    A agricultura não é apenas sobre produzir alimentos. É sobre construir um futuro onde 
+                    <strong>gerações vindouras possam prosperar</strong> em um planeta saudável. 
+                    <br><br>
+                    Através da <strong>tecnologia responsável</strong>, <strong>inovação verde</strong> e 
+                    <strong>compromisso ambiental</strong>, podemos transformar campos em ecossistemas 
+                    produtivos e regenerativos.
+                </p>
+                <div class="inspiracao-cta">
+                    <button class="btn btn-lg btn-primary" data-sound="click">
+                        Juntar-se ao Movimento
+                    </button>
+                    <button class="btn btn-lg btn-secondary" data-sound="click">
+                        Compartilhar Conhecimento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sobre Agro Forte</h4>
+                    <p>Um projeto para o Concurso Agrinho 2026, mostrando como tecnologia e sustentabilidade 
+                       podem transformar a agricultura.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#problema">Problemas</a></li>
+                        <li><a href="#solucoes">Soluções</a></li>
+                        <li><a href="#quiz">Quiz</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p>📧 contato@agroforte.com.br</p>
+                    <p>📱 (11) 99999-9999</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Redes Sociais</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 Facebook</a>
+                        <a href="#" class="social-link">📷 Instagram</a>
+                        <a href="#" class="social-link">🐦 Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Agro Forte. Desenvolvido para o Concurso Agrinho 2026.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE GALERIA -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <img id="modalImage" src="" alt="">
+            <p id="modalCaption"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
