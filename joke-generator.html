@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+    <link rel="stylesheet" href="joke-style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">😂 Random Joke Generator</h1>
+            <p class="subtitle">Get a laugh with a random joke!</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Joke Display Card -->
+            <div class="joke-card">
+                <div class="joke-container">
+                    <p id="jokeText" class="joke-text">Click "Get Joke" to load a random joke!</p>
+                    <p id="jokeType" class="joke-type"></p>
+                </div>
+            </div>
+
+            <!-- Controls Section -->
+            <div class="controls">
+                <!-- Joke Type Selector -->
+                <div class="control-group">
+                    <label for="jokeCategory">Joke Type:</label>
+                    <select id="jokeCategory">
+                        <option value="random">Random</option>
+                        <option value="general">General</option>
+                        <option value="knock-knock">Knock-Knock</option>
+                        <option value="programming">Programming</option>
+                    </select>
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button id="getJokeBtn" class="btn btn-primary">Get Joke</button>
+                    <button id="shareBtn" class="btn btn-secondary">Share</button>
+                    <button id="copyBtn" class="btn btn-secondary">Copy</button>
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="spinner" style="display: none;">
+                <div class="spinner-circle"></div>
+                <p>Loading joke...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+            <!-- Joke History -->
+            <div class="history-section">
+                <h2 class="history-title">📚 Recent Jokes</h2>
+                <ul id="jokeHistory" class="joke-history-list">
+                    <li class="empty-message">No jokes yet. Get started!</li>
+                </ul>
+                <button id="clearHistoryBtn" class="btn btn-small">Clear History</button>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <span class="stat-number" id="jokeCount">0</span>
+                    <span class="stat-label">Jokes Loaded</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="shareCount">0</span>
+                    <span class="stat-label">Times Shared</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="copyCount">0</span>
+                    <span class="stat-label">Times Copied</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by <a href="https://v2.jokeapi.dev/" target="_blank">JokeAPI</a></p>
+            <p>Made with ❤️ for laughs</p>
+        </footer>
+    </div>
+
+    <script src="joke-script.js"></script>
+</body>
+</html>
