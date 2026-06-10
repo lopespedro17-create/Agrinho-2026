@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List | App de Tarefas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>✓</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>📋 Minhas Tarefas</h1>
+                <p>Organize sua vida, uma tarefa por vez</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">🌙</button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="todoInput" 
+                        class="todo-input" 
+                        placeholder="Adicione uma nova tarefa..."
+                        aria-label="Adicionar nova tarefa"
+                    >
+                    <button class="add-btn" id="addBtn" aria-label="Adicionar tarefa">
+                        <span>+</span>
+                    </button>
+                </div>
+                <div class="input-hints">
+                    <small>💡 Pressione Enter ou clique no botão + para adicionar</small>
+                </div>
+            </section>
+
+            <!-- Filter & Sort Section -->
+            <section class="controls-section">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all" aria-label="Mostrar todas as tarefas">
+                        ✓ Todas
+                    </button>
+                    <button class="filter-btn" data-filter="pending" aria-label="Mostrar tarefas pendentes">
+                        ⏳ Pendentes
+                    </button>
+                    <button class="filter-btn" data-filter="completed" aria-label="Mostrar tarefas concluídas">
+                        ✔️ Concluídas
+                    </button>
+                </div>
+
+                <div class="sort-group">
+                    <select id="sortSelect" class="sort-select" aria-label="Ordenar tarefas">
+                        <option value="newest">Mais Recentes</option>
+                        <option value="oldest">Mais Antigas</option>
+                        <option value="az">A-Z</option>
+                        <option value="za">Z-A</option>
+                        <option value="priority">Prioridade</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <span class="stat-icon">📊</span>
+                    <div class="stat-content">
+                        <span class="stat-label">Total</span>
+                        <span class="stat-value" id="totalCount">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">⏳</span>
+                    <div class="stat-content">
+                        <span class="stat-label">Pendentes</span>
+                        <span class="stat-value" id="pendingCount">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">✅</span>
+                    <div class="stat-content">
+                        <span class="stat-label">Concluídas</span>
+                        <span class="stat-value" id="completedCount">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🔥</span>
+                    <div class="stat-content">
+                        <span class="stat-label">Streak</span>
+                        <span class="stat-value" id="streakCount">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Todo List -->
+            <section class="todos-section">
+                <div class="todos-container" id="todosList">
+                    <!-- Tarefas serão adicionadas aqui dinamicamente -->
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <h3>Nenhuma tarefa por aqui!</h3>
+                        <p>Adicione uma tarefa para começar</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actions Section -->
+            <section class="actions-section">
+                <button class="action-btn clear-completed" id="clearCompletedBtn" title="Limpar tarefas concluídas">
+                    🗑️ Limpar Concluídas
+                </button>
+                <button class="action-btn export-btn" id="exportBtn" title="Exportar tarefas em JSON">
+                    📥 Exportar
+                </button>
+                <button class="action-btn import-btn" id="importBtn" title="Importar tarefas de JSON">
+                    📤 Importar
+                </button>
+                <button class="action-btn delete-all" id="deleteAllBtn" title="Deletar todas as tarefas">
+                    ⚠️ Deletar Todas
+                </button>
+            </section>
+        </main>
+
+        <!-- Modal de Edição -->
+        <div class="modal" id="editModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Editar Tarefa</h2>
+                    <button class="modal-close" id="closeModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input 
+                        type="text" 
+                        id="editInput" 
+                        class="edit-input" 
+                        placeholder="Editar tarefa..."
+                    >
+                    <div class="priority-selector">
+                        <label>Prioridade:</label>
+                        <div class="priority-options">
+                            <button class="priority-option" data-priority="low">
+                                <span class="priority-dot low"></span> Baixa
+                            </button>
+                            <button class="priority-option" data-priority="medium">
+                                <span class="priority-dot medium"></span> Média
+                            </button>
+                            <button class="priority-option" data-priority="high">
+                                <span class="priority-dot high"></span> Alta
+                            </button>
+                        </div>
+                    </div>
+                    <div class="date-selector">
+                        <label for="editDate">Data:</label>
+                        <input type="date" id="editDate" class="edit-date">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" id="cancelEditBtn">Cancelar</button>
+                    <button class="btn-save" id="saveEditBtn">Salvar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden File Input para Importar -->
+        <input type="file" id="fileInput" accept=".json" style="display: none;">
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
