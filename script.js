@@ -1,477 +1,355 @@
-/* ========================================
-   AGRINHO 2026 - JAVASCRIPT
-   ======================================== */
+// Script JavaScript - Agro Forte, Futuro Sustentável
+// Funcionalidades interativas do site
 
-// Estado Global
-const app = {
-    darkMode: localStorage.getItem('darkMode') === 'true',
-    quizScore: 0,
-    currentQuestion: 0,
-    quizAnswers: [],
-    soundEnabled: localStorage.getItem('soundEnabled') !== 'false'
-};
+// ========== TEMA ESCURO ==========
+const themeToggle = document.getElementById('themeToggle');
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('navMenu');
 
-// ========================================
-// INICIALIZAÇÃO
-// ========================================
-
-document.addEventListener('DOMContentLoaded', () => {
-    initDarkMode();
-    initNavigation();
-    initQuiz();
-    initAnimations();
-    initCounters();
+// Alternar tema
+themeToggle?.addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    const icon = this.querySelector('.theme-icon');
+    icon.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
 });
 
-// ========================================
-// MODO ESCURO
-// ========================================
-
-function initDarkMode() {
-    const themeToggle = document.getElementById('themeToggle');
-    
-    // Aplicar modo escuro salvo
-    if (app.darkMode) {
+// Carregar tema salvo
+window.addEventListener('load', function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
-        themeToggle.textContent = '☀️';
+        const icon = themeToggle?.querySelector('.theme-icon');
+        if (icon) icon.textContent = '☀️';
     }
-    
-    themeToggle.addEventListener('click', toggleDarkMode);
-}
+});
 
-function toggleDarkMode() {
-    const themeToggle = document.getElementById('themeToggle');
-    app.darkMode = !app.darkMode;
-    document.body.classList.toggle('dark-mode');
-    themeToggle.textContent = app.darkMode ? '☀️' : '🌙';
-    localStorage.setItem('darkMode', app.darkMode);
-}
+// ========== MENU MOBILE ==========
+navToggle?.addEventListener('click', function() {
+    navMenu?.classList.toggle('active');
+});
 
-// ========================================
-// NAVEGAÇÃO
-// ========================================
-
-function initNavigation() {
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    // Toggle menu
-    menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('ativo');
-        menuToggle.classList.toggle('ativo');
+// Fechar menu ao clicar em um link
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu?.classList.remove('active');
     });
-    
-    // Fechar menu ao clicar em um link
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('ativo');
-            menuToggle.classList.remove('ativo');
-        });
-    });
-    
-    // Fechar menu ao scroll
-    window.addEventListener('scroll', () => {
-        if (navMenu.classList.contains('ativo')) {
-            navMenu.classList.remove('ativo');
-            menuToggle.classList.remove('ativo');
-        }
-    });
-}
+});
 
-// ========================================
-// QUIZ INTERATIVO
-// ========================================
-
-const quizData = [
-    {
-        pergunta: "Qual é o principal desafio ambiental da agricultura convencional?",
-        opcoes: [
-            "Desperdício de água e uso excessivo de agroquímicos",
-            "Falta de tecnologia nas fazendas",
-            "Preço alto dos produtos",
-            "Falta de mão de obra"
-        ],
-        correta: 0
-    },
-    {
-        pergunta: "Quanto de água doce é consumida pela agricultura globalmente?",
-        opcoes: [
-            "30%",
-            "50%",
-            "70%",
-            "90%"
-        ],
-        correta: 2
-    },
-    {
-        pergunta: "Qual tecnologia pode reduzir o desperdício de água em até 60%?",
-        opcoes: [
-            "Drones agrícolas",
-            "Irrigação inteligente com sensores IoT",
-            "Fertilizantes premium",
-            "Máquinas colheitadeiras"
-        ],
-        correta: 1
-    },
-    {
-        pergunta: "Qual é o benefício principal da agrofloresta?",
-        opcoes: [
-            "Reduzir custos de produção",
-            "Aumentar a biodiversidade e sequestrar carbono",
-            "Facilitar a mecanização",
-            "Aumentar o uso de agroquímicos"
-        ],
-        correta: 1
-    },
-    {
-        pergunta: "Como drones ajudam na agricultura sustentável?",
-        opcoes: [
-            "Apenas entregam produtos",
-            "Monitoram pragas e reduzem agroquímicos em até 70%",
-            "Plantam sementes manualmente",
-            "Não têm utilidade"
-        ],
-        correta: 1
-    }
-];
-
-function initQuiz() {
-    loadQuestion();
-    setupQuizButtons();
-}
-
-function loadQuestion() {
-    const currentQ = quizData[app.currentQuestion];
-    const quizContent = document.getElementById('quizContent');
-    
-    // Atualizar barra de progresso
-    const progress = ((app.currentQuestion + 1) / quizData.length) * 100;
-    document.getElementById('progressBar').style.width = progress + '%';
-    
-    // Conteúdo da pergunta
-    let html = `
-        <h3 class="quiz-question">${currentQ.pergunta}</h3>
-        <div class="quiz-options" id="optionsContainer">
-    `;
-    
-    currentQ.opcoes.forEach((opcao, index) => {
-        html += `
-            <div class="quiz-option" onclick="selectAnswer(${index})">
-                ${opcao}
-            </div>
-        `;
-    });
-    
-    html += '</div>';
-    quizContent.innerHTML = html;
-}
-
-function selectAnswer(index) {
-    const currentQ = quizData[app.currentQuestion];
-    const options = document.querySelectorAll('.quiz-option');
-    
-    // Marcar resposta
-    if (app.quizAnswers[app.currentQuestion] === undefined) {
-        app.quizAnswers[app.currentQuestion] = index;
-        
-        // Mostrar resultado
-        if (index === currentQ.correta) {
-            options[index].classList.add('correto');
-            app.quizScore += 20; // 5 perguntas, 20 pontos cada
-            playSound();
-        } else {
-            options[index].classList.add('incorreto');
-            options[currentQ.correta].classList.add('correto');
-        }
-        
-        // Desabilitar cliques
-        options.forEach(opt => {
-            opt.style.pointerEvents = 'none';
-        });
-        
-        // Atualizar pontuação
-        updateScoreDisplay();
-    }
-}
-
-function setupQuizButtons() {
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    
-    nextBtn.addEventListener('click', nextQuestion);
-    prevBtn.addEventListener('click', prevQuestion);
-}
-
-function nextQuestion() {
-    if (app.currentQuestion < quizData.length - 1) {
-        app.currentQuestion++;
-        loadQuestion();
-        updateButtonStates();
-    } else {
-        showQuizResult();
-    }
-}
-
-function prevQuestion() {
-    if (app.currentQuestion > 0) {
-        app.currentQuestion--;
-        loadQuestion();
-        updateButtonStates();
-    }
-}
-
-function updateButtonStates() {
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    
-    prevBtn.disabled = app.currentQuestion === 0;
-    nextBtn.textContent = app.currentQuestion === quizData.length - 1 ? 'Finalizar' : 'Próxima →';
-}
-
-function updateScoreDisplay() {
-    const scoreElement = document.getElementById('score');
-    scoreElement.textContent = app.quizScore;
-}
-
-function showQuizResult() {
-    const quizCard = document.getElementById('quizCard');
-    const quizResultado = document.getElementById('quizResultado');
-    
-    quizCard.style.display = 'none';
-    quizResultado.style.display = 'block';
-    
-    let titulo, texto;
-    
-    if (app.quizScore >= 80) {
-        titulo = 'Excelente! 🌟';
-        texto = 'Você é um especialista em agricultura sustentável!';
-    } else if (app.quizScore >= 60) {
-        titulo = 'Bom trabalho! 👍';
-        texto = 'Você tem conhecimento sólido sobre sustentabilidade.';
-    } else if (app.quizScore >= 40) {
-        titulo = 'Pode melhorar! 📚';
-        texto = 'Continue aprendendo sobre agricultura sustentável.';
-    } else {
-        titulo = 'Continue tentando! 💪';
-        texto = 'Estude mais sobre o tema e refaça o quiz.';
-    }
-    
-    document.getElementById('resultadoTitulo').textContent = titulo;
-    document.getElementById('resultadoTexto').textContent = texto;
-    document.getElementById('resultadoScore').textContent = `Pontuação: ${app.quizScore}/100`;
-}
-
-function reiniciarQuiz() {
-    app.quizScore = 0;
-    app.currentQuestion = 0;
-    app.quizAnswers = [];
-    
-    document.getElementById('quizCard').style.display = 'block';
-    document.getElementById('quizResultado').style.display = 'none';
-    document.getElementById('score').textContent = '0';
-    
-    loadQuestion();
-    updateButtonStates();
-}
-
-// ========================================
-// ANIMAÇÕES
-// ========================================
-
-function initAnimations() {
-    // Animar barras de impacto
-    const impactBars = document.querySelectorAll('.impact-fill');
-    impactBars.forEach(bar => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const percent = entry.target.getAttribute('data-percent');
-                    entry.target.style.width = percent + '%';
-                    observer.unobserve(entry.target);
-                }
-            });
-        });
-        observer.observe(bar);
-    });
-    
-    // Parallax effect
-    window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY;
-        const parallaxElements = document.querySelectorAll('.animated-background');
-        parallaxElements.forEach(el => {
-            el.style.transform = `translateY(${scrollPosition * 0.5}px)`;
-        });
-    });
-}
-
-// ========================================
-// CONTADORES ANIMADOS
-// ========================================
-
-function initCounters() {
-    const counters = document.querySelectorAll('.stat-number[data-target]');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    counters.forEach(counter => observer.observe(counter));
-}
-
-function animateCounter(element) {
-    const target = parseInt(element.getAttribute('data-target'));
-    const duration = 2000; // 2 segundos
-    const increment = target / (duration / 16); // 60fps
-    let current = 0;
-    
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(current);
-        }
-    }, 16);
-}
-
-// ========================================
-// SOM
-// ========================================
-
-function playSound() {
-    if (!app.soundEnabled) return;
-    
-    // Usar Web Audio API para criar um som simples
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.frequency.value = 800;
-    oscillator.type = 'sine';
-    
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.1);
-}
-
-// ========================================
-// SCROLL SMOOTH
-// ========================================
-
+// ========== SCROLL SUAVE ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 });
 
-// ========================================
-// EFEITOS DE HOVER NOS BOTÕES
-// ========================================
+// ========== BOTÃO SCROLL TO TOP ==========
+const scrollToTopBtn = document.getElementById('scrollToTop');
 
-const buttons = document.querySelectorAll('.btn');
-buttons.forEach(btn => {
-    btn.addEventListener('click', function() {
-        if (this.getAttribute('data-sound') === 'click') {
-            playSound();
-        }
-        
-        // Efeito ripple
-        const ripple = document.createElement('span');
-        ripple.style.position = 'absolute';
-        ripple.style.background = 'rgba(255,255,255,0.6)';
-        ripple.style.borderRadius = '50%';
-        ripple.style.transform = 'scale(0)';
-        ripple.style.animation = 'ripple 0.6s ease-out';
-        
-        this.style.position = 'relative';
-        this.style.overflow = 'hidden';
-        this.appendChild(ripple);
-        
-        setTimeout(() => ripple.remove(), 600);
-    });
-});
-
-// ========================================
-// OBSERVADOR DE INTERSECÇÃO PARA ANIMAÇÕES
-// ========================================
-
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.animation = `fadeInUp 0.6s ease-out forwards`;
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.card, .solucao-card, .galeria-item, .stat-card').forEach(element => {
-    observer.observe(element);
-});
-
-// ========================================
-// FUNCIONALIDADES EXTRAS
-// ========================================
-
-// Botão voltar ao topo
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-        // Mostrar botão se existir
-        const btn = document.querySelector('.scroll-top');
-        if (btn) btn.style.display = 'block';
+    if (window.pageYOffset > 300) {
+        scrollToTopBtn?.classList.add('show');
+    } else {
+        scrollToTopBtn?.classList.remove('show');
     }
 });
 
-// Mensagens de feedback
-function showFeedback(message, type = 'success') {
-    const feedback = document.createElement('div');
-    feedback.textContent = message;
-    feedback.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 25px;
-        background-color: ${type === 'success' ? '#52b788' : '#d62828'};
-        color: white;
-        border-radius: 5px;
-        z-index: 2000;
-        animation: slideInRight 0.3s ease-out;
-    `;
-    
-    document.body.appendChild(feedback);
-    
-    setTimeout(() => {
-        feedback.style.animation = 'slideInLeft 0.3s ease-out';
-        setTimeout(() => feedback.remove(), 300);
-    }, 3000);
+scrollToTopBtn?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ========== QUIZ INTERATIVO ==========
+const quizData = [
+    {
+        pergunta: 'Qual é a porcentagem de água doce usada na agricultura globalmente?',
+        opcoes: ['50%', '70%', '40%', '90%'],
+        resposta: 1
+    },
+    {
+        pergunta: 'Qual tecnologia reduz consumo de água em até 50%?',
+        opcoes: ['Desmatamento', 'Irrigação Inteligente', 'Monocultura', 'Queimadas'],
+        resposta: 1
+    },
+    {
+        pergunta: 'Qual percentual de alimentos é desperdiçado globalmente?',
+        opcoes: ['10%', '20%', '1/3', '50%'],
+        resposta: 2
+    },
+    {
+        pergunta: 'Qual é o impacto ambiental da agricultura em emissões de gases?',
+        opcoes: ['5%', '15%', '25%', '35%'],
+        resposta: 2
+    },
+    {
+        pergunta: 'Drones agrícolas podem reduzir uso de químicos em quantos porcento?',
+        opcoes: ['30%', '50%', '70%', '90%'],
+        resposta: 2
+    }
+];
+
+let quizAtual = 0;
+let respostas = [];
+let quizIniciado = false;
+
+function iniciarQuiz() {
+    quizIniciado = true;
+    respostas = new Array(quizData.length).fill(null);
+    mostrarPergunta();
 }
 
-// Evento para botão CTA
-const ctaButton = document.getElementById('ctaButton');
-if (ctaButton) {
-    ctaButton.addEventListener('click', () => {
-        showFeedback('Obrigado pelo interesse em agricultura sustentável! 🌱');
+function mostrarPergunta() {
+    const quiz = quizData[quizAtual];
+    const quizQuestion = document.getElementById('quizQuestion');
+    const quizOptions = document.getElementById('quizOptions');
+    const questionNumber = document.getElementById('questionNumber');
+    const totalQuestions = document.getElementById('totalQuestions');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+
+    if (quizQuestion) {
+        quizQuestion.textContent = quiz.pergunta;
+    }
+    if (questionNumber) {
+        questionNumber.textContent = quizAtual + 1;
+    }
+    if (totalQuestions) {
+        totalQuestions.textContent = quizData.length;
+    }
+
+    if (quizOptions) {
+        quizOptions.innerHTML = '';
+        quiz.opcoes.forEach((opcao, index) => {
+            const div = document.createElement('div');
+            div.className = 'quiz-option';
+            div.textContent = opcao;
+            if (respostas[quizAtual] === index) {
+                div.classList.add('selected');
+            }
+            div.addEventListener('click', () => selecionarOpcao(index, quizOptions));
+            quizOptions.appendChild(div);
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.style.display = quizAtual === 0 ? 'none' : 'block';
+    }
+    if (nextBtn) {
+        nextBtn.textContent = quizAtual === quizData.length - 1 ? 'Finalizar' : 'Próxima';
+    }
+}
+
+function selecionarOpcao(index, container) {
+    respostas[quizAtual] = index;
+    document.querySelectorAll('.quiz-option').forEach(option => {
+        option.classList.remove('selected', 'correct', 'incorrect');
+    });
+    container.children[index].classList.add('selected');
+}
+
+function proximaPergunta() {
+    if (quizAtual < quizData.length - 1) {
+        quizAtual++;
+        mostrarPergunta();
+    } else {
+        finalizarQuiz();
+    }
+}
+
+function perguntaAnterior() {
+    if (quizAtual > 0) {
+        quizAtual--;
+        mostrarPergunta();
+    }
+}
+
+function finalizarQuiz() {
+    let acertos = 0;
+    respostas.forEach((resposta, index) => {
+        if (resposta === quizData[index].resposta) {
+            acertos++;
+        }
+    });
+
+    const porcentagem = Math.round((acertos / quizData.length) * 100);
+    mostrarResultado(acertos, porcentagem);
+}
+
+function mostrarResultado(acertos, porcentagem) {
+    const quizContent = document.getElementById('quizContent');
+    const quizResult = document.getElementById('quizResult');
+    const scoreValue = document.getElementById('scoreValue');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+    const resultIcon = document.getElementById('resultIcon');
+
+    if (quizContent) quizContent.style.display = 'none';
+    if (quizResult) quizResult.style.display = 'block';
+
+    if (scoreValue) scoreValue.textContent = porcentagem;
+
+    let mensagem = '';
+    let icon = '';
+
+    if (porcentagem === 100) {
+        mensagem = 'Perfeito! Você é um especialista em agricultura sustentável!';
+        icon = '🏆';
+    } else if (porcentagem >= 80) {
+        mensagem = 'Excelente! Você entende bem sobre sustentabilidade agrícola!';
+        icon = '⭐';
+    } else if (porcentagem >= 60) {
+        mensagem = 'Bom! Continue aprendendo sobre agricultura sustentável!';
+        icon = '👍';
+    } else if (porcentagem >= 40) {
+        mensagem = 'Você está no caminho certo! Estude mais sobre o tema!';
+        icon = '📚';
+    } else {
+        mensagem = 'Continue aprendendo! A agricultura sustentável é importante!';
+        icon = '🌱';
+    }
+
+    if (resultTitle) resultTitle.textContent = `Sua Pontuação: ${acertos}/${quizData.length}`;
+    if (resultMessage) resultMessage.textContent = mensagem;
+    if (resultIcon) resultIcon.textContent = icon;
+}
+
+function resetQuiz() {
+    quizAtual = 0;
+    respostas = [];
+    quizIniciado = false;
+    const quizContent = document.getElementById('quizContent');
+    const quizResult = document.getElementById('quizResult');
+    if (quizContent) quizContent.style.display = 'block';
+    if (quizResult) quizResult.style.display = 'none';
+    mostrarPergunta();
+}
+
+// Inicializar Quiz ao carregar
+document.addEventListener('DOMContentLoaded', () => {
+    iniciarQuiz();
+});
+
+// Event Listeners para Quiz
+document.getElementById('nextBtn')?.addEventListener('click', proximaPergunta);
+document.getElementById('prevBtn')?.addEventListener('click', perguntaAnterior);
+
+// ========== GALERIA COM FILTROS ==========
+const filterBtns = document.querySelectorAll('.filter-btn');
+const galeriaItems = document.querySelectorAll('.galeria-item');
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        galeriaItems.forEach(item => {
+            const category = item.getAttribute('data-category');
+            if (filter === 'all' || category === filter) {
+                item.classList.remove('hidden');
+                setTimeout(() => item.style.opacity = '1', 10);
+            } else {
+                item.style.opacity = '0';
+                setTimeout(() => item.classList.add('hidden'), 300);
+            }
+        });
+    });
+});
+
+// ========== CONTADORES ANIMADOS ==========
+function animarContadores() {
+    const statBoxes = document.querySelectorAll('.stat-box');
+
+    statBoxes.forEach(box => {
+        const target = parseInt(box.getAttribute('data-target'));
+        const counter = box.querySelector('.counter');
+        let current = 0;
+        const incremento = target / 50;
+
+        const timer = setInterval(() => {
+            current += incremento;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            if (counter) counter.textContent = Math.round(current);
+        }, 30);
     });
 }
 
-console.log('🌱 Agrinho 2026 - Agro Forte, Futuro Sustentável!');
+// Iniciar contadores quando a seção ficar visível
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && entry.target.classList.contains('stats')) {
+            animarContadores();
+            observer.unobserve(entry.target);
+        }
+    });
+});
+
+const statsSection = document.querySelector('.stats');
+if (statsSection) observer.observe(statsSection);
+
+// ========== FORMULÁRIO DE CONTATO ==========
+const contactForm = document.getElementById('contactForm');
+
+contactForm?.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    
+    // Simulação de envio
+    alert('Mensagem enviada com sucesso! Obrigado por se interessar em agricultura sustentável!');
+    this.reset();
+});
+
+// ========== EFEITO AOS (Animations On Scroll) ==========
+const animateOnScroll = () => {
+    const elements = document.querySelectorAll('[data-aos]');
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = `${entry.target.getAttribute('data-aos')} 0.6s ease-out`;
+                scrollObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    elements.forEach(element => scrollObserver.observe(element));
+};
+
+document.addEventListener('DOMContentLoaded', animateOnScroll);
+
+// ========== EFEITO PARALLAX ==========
+window.addEventListener('scroll', () => {
+    const scrollAmount = window.scrollY;
+    const parallaxElements = document.querySelectorAll('.parallax');
+
+    parallaxElements.forEach(element => {
+        element.style.transform = `translateY(${scrollAmount * 0.5}px)`;
+    });
+});
+
+// ========== VALIDAÇÃO DE FORMULÁRIO ==========
+document.querySelectorAll('.form-input').forEach(input => {
+    input.addEventListener('blur', function() {
+        if (this.type === 'email' && this.value) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            this.style.borderBottomColor = regex.test(this.value) ? '#27ae60' : '#d62828';
+        }
+    });
+});
+
+// ========== LOG DE INICIALIZAÇÃO ==========
+console.log('🌾 Agro Forte, Futuro Sustentável - Website Inicializado!');
+console.log('✅ Todas as funcionalidades carregadas com sucesso!');
